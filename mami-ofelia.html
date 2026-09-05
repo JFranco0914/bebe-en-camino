@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <title>En Camino</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,7 +64,7 @@
   body{
     min-height:100vh;
     display:flex;
-    align-items:center;
+    align-items:safe center;
     justify-content:center;
     font-family:"Quicksand", ui-sans-serif, system-ui, sans-serif;
     color:var(--ink);
@@ -74,7 +75,7 @@
     width:100%;
     min-height:100vh;
     display:flex;
-    align-items:center;
+    align-items:safe center;
     justify-content:center;
     padding:2.5rem 1.25rem;
     background:linear-gradient(170deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
@@ -169,7 +170,7 @@
   .strut{ fill:var(--caramel-deep); opacity:0; animation:fadeInSimple .35s ease-out .6s both; }
   @keyframes fadeInSimple{ to{ opacity:1; } }
 
-  .basket{ fill:var(--caramel); transform-box:fill-box; transform-origin:50% 100%; opacity:0; animation:basketPop .6s cubic-bezier(.3,1.3,.5,1) .65s both; }
+  .basket{ fill:var(--caramel); stroke:var(--caramel-deep); stroke-width:2; transform-box:fill-box; transform-origin:50% 100%; opacity:0; animation:basketPop .6s cubic-bezier(.3,1.3,.5,1) .65s both; }
   .basket-rim{ opacity:0; animation:fadeInSimple .4s ease-out 1.05s both; }
   @keyframes basketPop{ from{ opacity:0; transform:scale(.6);} to{ opacity:1; transform:scale(1);} }
 
@@ -177,7 +178,7 @@
   .blanket-stitch{ opacity:0; animation:fadeInSimple .4s ease-out 1.4s both; }
   @keyframes blanketDrop{ from{ opacity:0; transform:translateY(-14px) rotate(-4deg);} to{ opacity:1; transform:translateY(0) rotate(0deg);} }
 
-  .hood{ fill:var(--cream); transform-box:fill-box; transform-origin:50% 100%; opacity:0; animation:hoodDrop .6s cubic-bezier(.25,1.1,.4,1) 1.3s both; }
+  .hood{ fill:var(--mint); stroke:var(--caramel-deep); stroke-width:2; stroke-linejoin:round; transform-box:fill-box; transform-origin:50% 100%; opacity:0; animation:hoodDrop .6s cubic-bezier(.25,1.1,.4,1) 1.3s both; }
   @keyframes hoodDrop{ from{ opacity:0; transform:translateY(-16px) scale(.92);} to{ opacity:1; transform:translateY(0) scale(1);} }
 
   .handle{
@@ -276,6 +277,40 @@
   @media (max-width:420px){
     .card{ padding:2.2rem 1.5rem 2rem; border-radius:1.6rem; }
   }
+
+  /* ---- music toggle ---- */
+  .music-toggle{
+    position:fixed;
+    right:1.1rem;
+    bottom:1.1rem;
+    z-index:10;
+    width:3rem;
+    height:3rem;
+    border-radius:50%;
+    border:1px solid var(--card-border);
+    background:var(--card-bg);
+    box-shadow:0 .6rem 1.4rem var(--card-shadow);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    color:var(--caramel-deep);
+    opacity:0;
+    animation:fadeInSimple .6s ease-out 3.4s both;
+    transition:transform .25s ease;
+  }
+  .music-toggle:hover{ transform:scale(1.08); }
+  .music-toggle svg{ width:1.4rem; height:1.4rem; }
+  .music-toggle .icon-off{ display:none; }
+  .music-toggle.is-muted .icon-on{ display:none; }
+  .music-toggle.is-muted .icon-off{ display:block; }
+  .music-toggle .bar{ transform-box:fill-box; transform-origin:50% 100%; animation:barBounce 1s ease-in-out infinite alternate; }
+  .music-toggle.is-muted .bar{ animation-play-state:paused; }
+  .music-toggle .bar:nth-child(2){ animation-delay:.15s; }
+  .music-toggle .bar:nth-child(3){ animation-delay:.3s; }
+  @keyframes barBounce{ from{ transform:scaleY(.4); } to{ transform:scaleY(1); } }
 </style>
 
 <div class="scene">
@@ -333,49 +368,49 @@
 
     <div class="carriage-wrap">
       <svg class="carriage" viewBox="0 0 240 210" aria-hidden="true">
-        <ellipse class="shadow-el" cx="129" cy="193" rx="66" ry="8"></ellipse>
+        <ellipse class="shadow-el" cx="128" cy="196" rx="74" ry="8"></ellipse>
 
         <g class="wheel">
-          <circle cx="88" cy="175" r="17" fill="var(--caramel-deep)"></circle>
-          <circle cx="88" cy="175" r="5" fill="var(--cream)"></circle>
+          <circle cx="86" cy="172" r="20" fill="var(--caramel-deep)"></circle>
+          <circle cx="86" cy="172" r="6.5" fill="var(--cream)"></circle>
         </g>
         <g class="wheel">
-          <circle cx="168" cy="175" r="17" fill="var(--caramel-deep)"></circle>
-          <circle cx="168" cy="175" r="5" fill="var(--cream)"></circle>
+          <circle cx="170" cy="172" r="20" fill="var(--caramel-deep)"></circle>
+          <circle cx="170" cy="172" r="6.5" fill="var(--cream)"></circle>
         </g>
 
-        <rect class="strut" x="84" y="158" width="8" height="14" rx="3"></rect>
-        <rect class="strut" x="164" y="158" width="8" height="14" rx="3"></rect>
+        <rect class="strut" x="82" y="148" width="8" height="18" rx="3"></rect>
+        <rect class="strut" x="166" y="148" width="8" height="18" rx="3"></rect>
 
-        <path class="basket" d="M70,158 Q70,118 108,112 L152,112 Q188,118 188,158 Q188,166 180,166 L78,166 Q70,166 70,158 Z"></path>
-        <path class="basket-rim" d="M108,112 Q129,106 152,112" stroke="var(--cream)" stroke-width="3" fill="none" opacity=".65"></path>
+        <path class="basket" d="M64,150 Q64,106 108,100 L150,100 Q194,106 194,150 Q194,160 184,160 L74,160 Q64,160 64,150 Z"></path>
+        <path class="basket-rim" d="M106,101 Q129,93 152,101" stroke="var(--cream)" stroke-width="3" fill="none" opacity=".65"></path>
 
-        <path class="blanket" d="M85,150 Q129,175 175,150 L175,166 Q129,180 85,166 Z"></path>
-        <path class="blanket-stitch" d="M100,158 Q129,168 160,158" stroke="var(--caramel-deep)" stroke-width="1.4" fill="none" opacity=".35"></path>
+        <path class="blanket" d="M79,144 Q129,174 179,144 L179,160 Q129,178 79,160 Z"></path>
+        <path class="blanket-stitch" d="M96,151 Q129,164 162,151" stroke="var(--caramel-deep)" stroke-width="1.4" fill="none" opacity=".35"></path>
 
         <g class="bear-peek">
-          <circle cx="117" cy="86" r="7" fill="var(--caramel)"></circle>
-          <circle cx="141" cy="86" r="7" fill="var(--caramel)"></circle>
-          <circle cx="117" cy="86" r="3" fill="var(--cream)"></circle>
-          <circle cx="141" cy="86" r="3" fill="var(--cream)"></circle>
-          <circle cx="129" cy="100" r="17" fill="var(--caramel)"></circle>
-          <ellipse cx="129" cy="106" rx="8" ry="6" fill="var(--cream)"></ellipse>
-          <circle cx="124" cy="98" r="2" fill="var(--ink)"></circle>
-          <circle cx="134" cy="98" r="2" fill="var(--ink)"></circle>
-          <ellipse cx="129" cy="103" rx="2.6" ry="2" fill="var(--ink)"></ellipse>
+          <circle cx="118" cy="88" r="7.5" fill="var(--caramel)"></circle>
+          <circle cx="142" cy="88" r="7.5" fill="var(--caramel)"></circle>
+          <circle cx="118" cy="88" r="3.2" fill="var(--cream)"></circle>
+          <circle cx="142" cy="88" r="3.2" fill="var(--cream)"></circle>
+          <circle cx="130" cy="102" r="18" fill="var(--caramel)"></circle>
+          <ellipse cx="130" cy="109" rx="8.5" ry="6.2" fill="var(--cream)"></ellipse>
+          <circle cx="124.5" cy="100" r="2.1" fill="var(--ink)"></circle>
+          <circle cx="135.5" cy="100" r="2.1" fill="var(--ink)"></circle>
+          <ellipse cx="130" cy="106" rx="2.8" ry="2.1" fill="var(--ink)"></ellipse>
         </g>
 
-        <path class="hood" d="M95,112 Q95,58 130,55 Q165,58 165,100 L165,112 Q130,100 95,112 Z"></path>
-        <circle class="hood" cx="100" cy="72" r="6"></circle>
-        <circle class="hood" cx="130" cy="58" r="6"></circle>
-        <circle class="hood" cx="160" cy="78" r="6"></circle>
+        <path class="hood" d="M90,101 Q90,42 129,38 Q168,42 168,88 L168,101 Q129,86 90,101 Z"></path>
+        <circle class="hood" cx="97" cy="60" r="7"></circle>
+        <circle class="hood" cx="129" cy="41" r="7"></circle>
+        <circle class="hood" cx="161" cy="66" r="7"></circle>
 
-        <path class="handle" d="M188,158 Q214,150 210,116" pathLength="1"></path>
-        <line x1="210" y1="116" x2="210" y2="126" stroke="var(--caramel-deep)" stroke-width="1.5"></line>
-        <use class="charm" href="#ic-star" x="199" y="122" width="22" height="22"></use>
+        <path class="handle" d="M194,150 Q222,138 216,100" pathLength="1"></path>
+        <circle class="charm" cx="216" cy="100" r="7" fill="var(--caramel-deep)"></circle>
+        <circle class="charm" cx="216" cy="100" r="3" fill="var(--cream)"></circle>
 
-        <use class="prop prop-rattle" href="#ic-rattle" x="26" y="146" width="34" height="34"></use>
-        <use class="prop prop-pacifier" href="#ic-pacifier" x="196" y="148" width="34" height="34"></use>
+        <use class="prop prop-rattle" href="#ic-rattle" x="16" y="150" width="34" height="34"></use>
+        <use class="prop prop-pacifier" href="#ic-pacifier" x="200" y="152" width="34" height="34"></use>
       </svg>
     </div>
 
@@ -393,7 +428,66 @@
     </blockquote>
 
     <hr class="divider reveal r6">
-    <p class="script closing reveal r6">Gracias por ser parte de esta historia <strong>Mami Ofelia</strong> que apenas comienza.</p>
-    <p class="closing-label reveal r7">Con todo nuestro amor</p>
+    <p class="script closing reveal r6">Gracias por ser parte de esta historia que apenas comienza <strong style="color: #000 !important;">Mami Ofelia</strong>.</p>
   </main>
+
+  <audio id="bgm" loop preload="auto">
+    <source src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Irish_lullaby.ogg" type="audio/ogg">
+  </audio>
+  <button id="musicToggle" class="music-toggle" type="button" aria-pressed="true"
+    aria-label="Silenciar musica de fondo"
+    title="Musica: &quot;Irish Lullaby&quot; de Richard Kearns (CC BY 3.0), via Wikimedia Commons">
+    <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true">
+      <rect class="bar" x="4"  y="9"  width="3.4" height="10" rx="1.5" fill="currentColor"></rect>
+      <rect class="bar" x="10.3" y="5"  width="3.4" height="18" rx="1.5" fill="currentColor"></rect>
+      <rect class="bar" x="16.6" y="11" width="3.4" height="8"  rx="1.5" fill="currentColor"></rect>
+    </svg>
+    <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 10v4h4l5 5V5l-5 5H3Z" fill="currentColor"></path>
+      <line x1="15.5" y1="9" x2="21" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+      <line x1="21" y1="9" x2="15.5" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+    </svg>
+  </button>
+
+  <script>
+    (function(){
+      var audio = document.getElementById('bgm');
+      var toggle = document.getElementById('musicToggle');
+      audio.volume = 0.5;
+
+      function setMuted(muted){
+        toggle.classList.toggle('is-muted', muted);
+        toggle.setAttribute('aria-pressed', String(!muted));
+        toggle.setAttribute('aria-label', muted ? 'Activar musica de fondo' : 'Silenciar musica de fondo');
+      }
+
+      function tryPlay(){
+        audio.play().then(function(){
+          setMuted(false);
+        }).catch(function(){
+          setMuted(true);
+        });
+      }
+
+      tryPlay();
+
+      function resumeOnFirstGesture(evt){
+        if(evt.target.closest('#musicToggle')) return;
+        if(!audio.paused) return;
+        audio.play().then(function(){ setMuted(false); }).catch(function(){});
+      }
+      ['pointerdown', 'keydown'].forEach(function(evt){
+        document.addEventListener(evt, resumeOnFirstGesture, { once:true, passive:true });
+      });
+
+      toggle.addEventListener('click', function(){
+        if(audio.paused){
+          audio.play().then(function(){ setMuted(false); }).catch(function(){});
+        } else {
+          audio.pause();
+          setMuted(true);
+        }
+      });
+    })();
+  </script>
 </div>
